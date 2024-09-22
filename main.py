@@ -14,22 +14,22 @@ def summary_statistics(dataframe, report_file):
     # Transpose the summary DataFrame for better readability
     summary_t = summary.transpose(include_header=True)
 
-    with open(report_file, 'a', encoding='utf-8') as file:
-        file.write("### Summary Statistics\n")
-        file.write("\n| Metric | " + " | ".join(summary_t.columns) + " |\n")
-        file.write("|--------|" + "------|" * len(summary_t.columns) + "\n")
+    with open(report_file, 'a', encoding='utf-8') as report_file_handle:
+        report_file_handle.write("### Summary Statistics\n")
+        report_file_handle.write("\n| Metric | " + " | ".join(summary_t.columns) + " |\n")
+        report_file_handle.write("|--------|" + "------|" * len(summary_t.columns) + "\n")
         
         # Loop through summary statistics and format them in a markdown table
         for row in summary_t.to_dicts():
             row_values = [f"{row[col]}" for col in summary_t.columns]
-            file.write(f"| {row['column']} | " + " | ".join(row_values) + " |\n")
+            report_file_handle.write(f"| {row['column']} | " + " | ".join(row_values) + " |\n")
 
-        file.write("\n\n")
+        report_file_handle.write("\n\n")
 
 def plot_histograms(dataframe, columns, report_file, bins=20):
     """Plot histograms for specified columns in the DataFrame."""
     num_cols = len(columns)
-    fig, axes = plt.subplots(1, num_cols, figsize=(5 * num_cols, 5))  # Adjust figure size dynamically
+    _, axes = plt.subplots(1, num_cols, figsize=(5 * num_cols, 5))  # Adjust figure size dynamically
 
     for i, col in enumerate(columns):
         axes[i].hist(dataframe[col].to_numpy(), bins=bins, edgecolor='black', alpha=0.7)
@@ -42,9 +42,9 @@ def plot_histograms(dataframe, columns, report_file, bins=20):
     plt.savefig(histogram_path)
 
     # Add the histogram image to the markdown file
-    with open(report_file, 'a', encoding='utf-8') as file:
-        file.write(f"### Histograms for Selected Columns\n")
-        file.write(f"![Histograms]({histogram_path})\n\n")
+    with open(report_file, 'a', encoding='utf-8') as report_file_handle:
+        report_file_handle.write("### Histograms for Selected Columns\n")
+        report_file_handle.write(f"![Histograms]({histogram_path})\n\n")
 
 def plot_bar_by_category(dataframe, category_col, value_col, report_file):
     """Compare average purchase amounts by region."""
@@ -69,16 +69,16 @@ def plot_bar_by_category(dataframe, category_col, value_col, report_file):
     plt.savefig(bar_plot_path)
 
     # Add the bar plot image to the markdown file
-    with open(report_file, 'a', encoding='utf-8') as file:
-        file.write(f"### Bar Plot: Average {value_col} by {category_col}\n")
-        file.write(f"![Bar Plot]({bar_plot_path})\n\n")
-        
+    with open(report_file, 'a', encoding='utf-8') as report_file_handle:
+        report_file_handle.write(f"### Bar Plot: Average {value_col} by {category_col}\n")
+        report_file_handle.write(f"![Bar Plot]({bar_plot_path})\n\n")
+
 # Reading the data using Polars
 df = read_csv_file(file_path)
 
 # Clear the contents of the report file to start fresh
-with open(output_report, 'w', encoding='utf-8') as file:
-    file.write("# Summary Report\n\n")
+with open(output_report, 'w', encoding='utf-8') as report_file_handle:
+    report_file_handle.write("# Summary Report\n\n")
 
 # Writing summary statistics to the summary report file
 summary_statistics(df, output_report)
