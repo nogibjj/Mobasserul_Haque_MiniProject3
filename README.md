@@ -1,7 +1,7 @@
 # Pandas Descriptive Script Mini Project
 [![CI](https://github.com/nogibjj/Mobasserul_Haque_MiniProject2/actions/workflows/cicd.yml/badge.svg)](https://github.com/nogibjj/Mobasserul_Haque_MiniProject2/actions/workflows/cicd.yml)
 
-This project performs exploratory data analysis (EDA) on a dataset containing customer purchasing behavior, providing insights into various patterns and relationships using pandas, Matplotlib, and Seaborn.
+This project performs exploratory data analysis (EDA) on a dataset containing customer purchasing behavior, providing insights into various patterns and relationships using Polars, Matplotlib, and Seaborn.
 
 ## Table of Contents
 - [Overview](#overview)
@@ -27,7 +27,7 @@ This project performs exploratory data analysis (EDA) on a dataset containing cu
 - [License](#license)
 
 ## Overview
-This project focuses on analyzing customer purchasing behavior using a dataset in CSV format. It generates various statistical summaries and visualizations to help understand trends, relationships, and distributions in the data.
+This project focuses on analyzing customer purchasing behavior using a dataset in CSV format using Polars. It generates various statistical summaries and visualizations to help understand trends, relationships, and distributions in the data.
 
 ## Source
 The dataset used in this project is **Customer Purchasing Behaviors**, which can be found on Kaggle:  
