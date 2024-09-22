@@ -28,13 +28,16 @@ def summary_statistics(dataframe, report_file):
 
 def plot_histograms(dataframe, columns, report_file, bins=20):
     """Plot histograms for specified columns in the DataFrame."""
-    plt.figure(figsize=(12, 6))
-    
-    for col in columns:
-        plt.hist(dataframe[col].to_numpy(), bins=bins, edgecolor='black', alpha=0.7, label=col)
-    
-    plt.suptitle('Distribution of age, annual income, purchase amount, and purchase frequency')
-    plt.legend(loc='upper right')
+    num_cols = len(columns)
+    fig, axes = plt.subplots(1, num_cols, figsize=(5 * num_cols, 5))  # Adjust figure size dynamically
+
+    for i, col in enumerate(columns):
+        axes[i].hist(dataframe[col].to_numpy(), bins=bins, edgecolor='black', alpha=0.7)
+        axes[i].set_title(f'Distribution of {col}')
+        axes[i].set_xlabel(col)
+        axes[i].set_ylabel('Frequency')
+
+    plt.tight_layout()  # Adjusts subplots to fit into the figure cleanly
     histogram_path = "Histogram_column_distributions.png"
     plt.savefig(histogram_path)
 
